@@ -18,6 +18,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* KaleidoDatingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* KaleidoDatingTests.m */; };
 		598F84A6A3F465BE04C7B0AC /* libPods-KaleidoDating-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7813A3B49F1473AF507EB134 /* libPods-KaleidoDating-tvOS.a */; };
+		BBE6282523E2826B00B9979C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBE6282423E2826B00B9979C /* GoogleService-Info.plist */; };
 		E978E04CB7BBD0B666106858 /* libPods-KaleidoDating-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8712E7F4DCCFE9E55C26066C /* libPods-KaleidoDating-tvOSTests.a */; };
 		EFA79BAE2283EB05BEA5EFF1 /* libPods-KaleidoDating.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8121B4470034ABFEFE276D /* libPods-KaleidoDating.a */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		85D9DCCBBA5A0C502B470DC7 /* Pods-KaleidoDating-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaleidoDating-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-KaleidoDating-tvOSTests/Pods-KaleidoDating-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		8712E7F4DCCFE9E55C26066C /* libPods-KaleidoDating-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KaleidoDating-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905CE70E768A6AFF612C48E3 /* Pods-KaleidoDating.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaleidoDating.release.xcconfig"; path = "Target Support Files/Pods-KaleidoDating/Pods-KaleidoDating.release.xcconfig"; sourceTree = "<group>"; };
+		BBE6282423E2826B00B9979C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "KaleidoDating/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD2482DBB6E1A272830CD525 /* Pods-KaleidoDating-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaleidoDating-tvOS.release.xcconfig"; path = "Target Support Files/Pods-KaleidoDating-tvOS/Pods-KaleidoDating-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E499C7B3080A60820F5ED080 /* Pods-KaleidoDating-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaleidoDating-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-KaleidoDating-tvOS/Pods-KaleidoDating-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -125,6 +127,7 @@
 		13B07FAE1A68108700A75B9A /* KaleidoDating */ = {
 			isa = PBXGroup;
 			children = (
+				BBE6282423E2826B00B9979C /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -194,7 +197,6 @@
 				5C8773A9BFA67506E6A567D2 /* Pods-KaleidoDatingTests.debug.xcconfig */,
 				7105867C972852C0B353D06C /* Pods-KaleidoDatingTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -309,6 +311,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -339,6 +342,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				BBE6282523E2826B00B9979C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
