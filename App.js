@@ -15,7 +15,6 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
-
 function Home() {
   return (
     <Tabs.Navigator
