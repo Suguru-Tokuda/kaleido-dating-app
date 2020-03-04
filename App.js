@@ -11,6 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ButtomTabBar from './src/components/navigation/bottomTabBar';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -18,25 +19,27 @@ const Tabs = createBottomTabNavigator();
 function Home() {
   return (
     <Tabs.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let icon;
-          if (route.name === 'Swipe') {
-            icon = <MaterialIcon name='cards-outline' size={size} color={color} />;
-          } else if (route.name === 'Search') {
-            icon = <FeatherIcon name='search' size={size} color={color} />;
-          } else if (route.name === 'Messages') {
-            icon = <FeatherIcon name='message-circle' size={size} color={color} />;
-          } else if (route.name === 'Settings') {
-            icon = <FeatherIcon name='settings' size={size} color={color} />;
-          }
-          return icon;
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: 'purple',
-        inactiveTintColor: 'gray'
-      }}
+      tabBar={props => <ButtomTabBar {...props} />}
+      // screenOptions={({ route }) => ({
+      //   tabBarIcon: ({ focused, color, size }) => {
+      //     let icon;
+      //     if (route.name === 'Swipe') {
+      //       icon = <MaterialIcon name='cards-outline' size={size} color={color} />;
+      //     } else if (route.name === 'Search') {
+      //       icon = <FeatherIcon name='search' size={size} color={color} />;
+      //     } else if (route.name === 'Messages') {
+      //       icon = <FeatherIcon name='message-circle' size={size} color={color} />;
+      //     } else if (route.name === 'Settings') {
+      //       icon = <FeatherIcon name='settings' size={size} color={color} />;
+      //     }
+      //     return icon;
+      //   },
+      // })}
+      // tabBarOptions={{
+      //   activeTintColor: 'purple',
+      //   inactiveTintColor: 'gray',
+      //   showLabel: false
+      // }}
     >
       <Tabs.Screen name="Swipe" component={Swipe} />
       <Tabs.Screen name="Search" component={Search} />
