@@ -40,7 +40,7 @@ class BottomTabBar extends Component {
                       icon = <FeatherIcon style={iconStyles} name='search' size={iconSize} color={color} />;
                     } else if (route.name === 'Messages') {
                       icon = <FeatherIcon style={iconStyles} name='message-circle' size={iconSize} color={color} />;
-                    } else if (route.name === 'RootSettings') {
+                    } else if (route.name === 'Settings') {
                       icon = <FeatherIcon style={iconStyles} name='user' size={iconSize} color={color} />;
                     }
                     const onPress = () => {

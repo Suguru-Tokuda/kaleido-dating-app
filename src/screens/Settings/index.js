@@ -7,6 +7,7 @@ class Settings extends Component {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
                 <Text style={{ fontSize: 30 }}>Main settings</Text>
+                {/* <Button onPress={() => navigation.navigate('RootSettings', { screen: 'ProfileModal' })} title="Open Profile" /> */}
                 <Button onPress={() => navigation.navigate('ProfileModal')} title="Open Profile" />
             </View>
         );

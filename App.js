@@ -19,36 +19,24 @@ const Stack = createStackNavigator();
 const SettingsRootStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const RootSettings = (props) => {
-  return (
-    <SettingsRootStack.Navigator mode="modal" headerMode="float">
-      <SettingsRootStack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
-      <SettingsRootStack.Screen name="ProfileModal" component={ProfileModal}
-       options={{ headerShown: false, headerLeft: null }} 
-       />
-    </SettingsRootStack.Navigator>
-  )
-}
-
-const Home = (props) => {
-  let tabBarVisible = true;
-  if (props.route && props.route.state && props.route.state.routes && props.route.state.routes[3] && props.route.state.routes[3].state) {
-    const index = props.route.state.routes[3].state.index;
-    const routeName = props.route.state.routes[3].state.routeNames[index];
-    if (routeName && routeName === 'ProfileModal') {
-      tabBarVisible = false;
-    } else {
-      tabBarVisible = true;
-    }
-  }
+const Main = () => {
   return (
     <Tab.Navigator tabBar={props => <ButtomTabBar {...props}/>}>
       <Tab.Screen name="Swipe" component={Swipe} />
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Messages" component={Messages} />
-      <Tab.Screen name="RootSettings" component={RootSettings} options={{ tabBarVisible: tabBarVisible }} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
+}
+
+const Home = () => {
+  return (
+    <SettingsRootStack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+      <SettingsRootStack.Screen name="Main" component={Main} />
+      <SettingsRootStack.Screen name="ProfileModal" component={ProfileModal} />
+    </SettingsRootStack.Navigator>
+  )
 }
 
 class App extends Component {
@@ -56,7 +44,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+          <Stack.Navigator mode="card" screenOptions={{ headerShown: false, gestureEnabled: false }}>
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
             <Stack.Screen name="Home" component={Home}></Stack.Screen>
           </Stack.Navigator>
