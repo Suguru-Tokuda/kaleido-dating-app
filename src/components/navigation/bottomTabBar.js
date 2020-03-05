@@ -12,26 +12,39 @@ class BottomTabBar extends Component {
         return (
             <View style={{ 
               flexDirection: 'row',
-              backgroundColor: 'white'
+              backgroundColor: '#ce9aff',
+              border: 2,
+              radius: 3,
+              showOpacity: 0.3,
+              shadowRadius: 3,
+              shadowOffset: {
+                height: 0,
+                width: 0
+              }
                }}>
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
-                    const label = options.tabBarLabel !== undefined
-                                    ? options.tabBarLabel
-                                    : options.title !== undefined
-                                    ? options.title
-                                    : route.name;
+                    // const label = options.tabBarLabel !== undefined
+                    //                 ? options.tabBarLabel
+                    //                 : options.title !== undefined
+                    //                 ? options.title
+                    //                 : route.name;
                     let icon;
                     const isFocused = state.index === index;
-                    const color = isFocused ? 'purple' : 'gray';
+                    const color = isFocused ? 'white' : 'gray';
+                    const iconStyles = {
+                      alignSelf: 'center',
+                      marginTop: 20
+                    };
+                    const iconSize = 30;
                     if (route.name === 'Swipe') {
-                      icon = <MaterialIcon style={{ alignSelf: 'center', marginTop: 20}} name='cards-outline' size={25} color={color} />;
+                      icon = <MaterialIcon style={iconStyles} name='cards-outline' size={iconSize} color={color} />;
                     } else if (route.name === 'Search') {
-                      icon = <FeatherIcon style={{ alignSelf: 'center', marginTop: 20}} name='search' size={25} color={color} />;
+                      icon = <FeatherIcon style={iconStyles} name='search' size={iconSize} color={color} />;
                     } else if (route.name === 'Messages') {
-                      icon = <FeatherIcon style={{ alignSelf: 'center', marginTop: 20}} name='message-circle' size={25} color={color} />;
-                    } else if (route.name === 'Settings') {
-                      icon = <FeatherIcon style={{ alignSelf: 'center', marginTop: 20}} name='user' size={25} color={color} />;
+                      icon = <FeatherIcon style={iconStyles} name='message-circle' size={iconSize} color={color} />;
+                    } else if (route.name === 'RootSettings') {
+                      icon = <FeatherIcon style={iconStyles} name='user' size={iconSize} color={color} />;
                     }
                     const onPress = () => {
                         const event = navigation.emit({
