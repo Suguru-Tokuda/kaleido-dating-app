@@ -7,6 +7,10 @@ import Messages from './src/screens/messages';
 import Search from './src/screens/search';
 import Settings from './src/screens/settings';
 import ProfileModal from './src/screens/settings/profileModal';
+
+import Step1 from './src/screens/user-registration/step-1';
+
+
 import store from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +21,7 @@ import ButtomTabBar from './src/components/navigation/bottomTabBar';
 
 const Stack = createStackNavigator();
 const SettingsRootStack = createStackNavigator();
+const UserRegistrationStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
@@ -39,12 +44,21 @@ const Home = () => {
   )
 }
 
+const UserRegistration = () => {
+  return (
+    <UserRegistrationStack.Navigator mode="card" screenOptions={{ headerShown: false }}>
+      <UserRegistrationStack.Screen name="Step1" component={Step1} />
+    </UserRegistrationStack.Navigator>
+  );
+}
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator mode="card" screenOptions={{ headerShown: false, gestureEnabled: false }}>
+            <Stack.Screen name="UserRegistration" component={UserRegistration}></Stack.Screen>
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
             <Stack.Screen name="Home" component={Home}></Stack.Screen>
           </Stack.Navigator>
