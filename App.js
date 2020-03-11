@@ -9,7 +9,7 @@ import Settings from './src/screens/settings';
 import ProfileModal from './src/screens/settings/profileModal';
 
 import Step1 from './src/screens/user-registration/step-1';
-
+import RacePreferenceCheckBoxes from './src/screens/user-registration/racePreferenceCheckBoxes';
 
 import store from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
@@ -33,7 +33,7 @@ const Main = () => {
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
-}
+} 
 
 const Home = () => {
   return (
@@ -46,8 +46,9 @@ const Home = () => {
 
 const UserRegistration = () => {
   return (
-    <UserRegistrationStack.Navigator mode="card" screenOptions={{ headerShown: false }}>
+    <UserRegistrationStack.Navigator mode="card" screenOptions={{ headerShown: false, gestureEnabled: false }}>
       <UserRegistrationStack.Screen name="Step1" component={Step1} />
+      <UserRegistrationStack.Screen name="RacePreferenceCheckBoxes" component={RacePreferenceCheckBoxes} />
     </UserRegistrationStack.Navigator>
   );
 }

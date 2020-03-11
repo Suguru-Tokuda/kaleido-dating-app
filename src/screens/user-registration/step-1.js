@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Picker, Dimensions, Button, TextInput, Keyboard } from 'react-native';
-import { Container, Content, Text, View, InputGroup, Input, Item, Label, Form } from 'native-base';
+import { Picker, Dimensions, Button, Keyboard } from 'react-native';
+import { Container, Content, Text, View, Input, Item, Label, Form } from 'native-base';
 import { connect } from 'react-redux';
 
 var deviceHeight = Dimensions.get('window').height;
@@ -16,6 +16,7 @@ class Step1 extends Component {
             {raceID: 4, label: 'Indian'},
             {raceID: 5, label: 'Mexican'}
         ],
+        selectedRacePrefIDs: [],
         selectedGenderID: 1,
         genders: [
             {genderID: 1, label: 'Male'},
@@ -25,10 +26,10 @@ class Step1 extends Component {
         showRacePicker: false
     }
 
-    renderPickerItems() {
+    renderGenderPickerItems() {
         const { genders } = this.state;
         if (genders.length > 0) {
-            return genders.map(gender => <Picker.Item label={gender.label} value={gender.genderID} />);
+            return genders.map(gender => <Picker.Item key={`gender-picker-item ${gender.genderID}`} label={gender.label} value={gender.genderID} />);
         }
         return null;
     }
@@ -44,7 +45,7 @@ class Step1 extends Component {
                         selectedValue={this.state.selectedGenderID}
                         onValueChange={(itemValue) => this.setState({ selectedGenderID: itemValue })}
                     >
-                        {this.renderPickerItems()}
+                        {this.renderGenderPickerItems()}
                     </Picker>
                 </View>
             );
@@ -54,7 +55,7 @@ class Step1 extends Component {
     renderRacePickerItems() {
         const { races } = this.state;
         if (races.length > 0) {
-            return races.map(race => <Picker.Item label={race.label} value={race.raceID} />);
+            return races.map(race => <Picker.Item key={`picker-item-race: ${race.raceID}`} label={race.label} value={race.raceID} />);
         }
         return null;
     }
@@ -100,6 +101,22 @@ class Step1 extends Component {
         return '';
     }
 
+    getRacePrefsLabel = () => {
+        const { races } = this.state;
+        const { racePrefIDs } = this.props;
+        let retVal = '';
+        races.forEach((race, i) => {
+            if (racePrefIDs.indexOf(race.raceID) !== -1) {
+                if (retVal.length === 0) {
+                    retVal += race.label;
+                } else {
+                    retVal += `, ${race.label}`;
+                }
+            }
+        });
+        return retVal;
+    }
+
     handleShowGenderPickerBtnPressed = () => {
         Keyboard.dismiss();
         let showGenderPicker = this.state.showGenderPicker;
@@ -112,6 +129,16 @@ class Step1 extends Component {
         let showRacePicker = this.state.showRacePicker;
         showRacePicker = !showRacePicker;
         this.setState({ showRacePicker });
+    }
+
+    handleRacePrefsOnFocus = () => {
+        const { races } = this.state;
+        const { racePrefIDs } = this.props;
+        console.log(racePrefIDs);
+        this.props.navigation.navigate('RacePreferenceCheckBoxes', {
+            selectedRaceIDs: racePrefIDs,
+            races: races
+        });
     }
 
     render() {
@@ -133,14 +160,31 @@ class Step1 extends Component {
                             <Item floatingLabel>
                                 <Label>Race</Label>
                                 <Input  
-                                    style={{ color: 'purle'}}
+                                    style={{ color: 'purple'}}
                                     value={this.getRaceValue()}
                                     onFocus={this.handleShowRacePickerBtnPress}
                                 />
                             </Item>
-                            <Item floatingLabel>
-                                <Label></Label>
-                            </Item>              
+                            {this.props.racePrefIDs.length === 0 && (
+                                <Item floatingLabel>
+                                    <Label>Looking for</Label>
+                                    <Input
+                                        style={{ color: 'purple'}}
+                                        onFocus={this.handleRacePrefsOnFocus}
+                                        value={this.getRacePrefsLabel()}
+                                    />
+                                </Item>              
+                            )}
+                            {this.props.racePrefIDs.length > 0 && (
+                                <Item stackedLabel>
+                                    <Label>Looking for</Label>
+                                    <Input
+                                        style={{ color: 'purple'}}
+                                        onFocus={this.handleRacePrefsOnFocus}
+                                        value={this.getRacePrefsLabel()}
+                                    />
+                                </Item>              
+                            )}
                         </Form>
                     </Content>
                 </Container>
@@ -155,10 +199,9 @@ function mapStateToProps(state) {
     return {
         raceIDs: state.userRegistration.raceIDs,
         gender: state.userRegistration.race,
-        raceIDsToLookFor: state.userRegistration.raceIDsToLookFor,
+        racePrefIDs: state.userRegistration.racePrefIDs,
         genderToLookFor: state.userRegistration.genderToLookFor
     };
 }
 
 export default connect(mapStateToProps)(Step1);
-// export default Step1;
