@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
 import { Provider } from 'react-redux';
 import Login from './src/screens/login';
 import Swipe from './src/screens/swipe';
@@ -15,8 +14,7 @@ import store from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import ButtomTabBar from './src/components/navigation/bottomTabBar';
 
 const Stack = createStackNavigator();
