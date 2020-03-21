@@ -4,7 +4,7 @@ import { Container, Content, Text, View, Input, Item, Label, Form, Badge, Button
 import * as Progress from 'react-native-progress';
 import { connect } from 'react-redux';
 
-var deviceHeight = Dimensions.get('window').height;
+const deviceHeight = Dimensions.get('window').height;
 
 class Step1 extends Component {
     state = {
@@ -281,12 +281,12 @@ class Step1 extends Component {
         return (
             <TouchableOpacity style={{ height: deviceHeight, backgroundColor: 'white' }} onPressOut={this.handleContentPress} activeOpacity={1}>
                 <Container>
-                    <Content scrollEnabled={false} style={{ padding: 20}} >
-                        <View style={{ alignSelf: 'center', marginTop: 20}}>
+                    <Content scrollEnabled={false} style={{ padding: 20 }}>
+                        <View style={{ alignSelf: 'center', marginTop: 20 }}>
                             <Progress.Bar progress={0.0} width={200} color={'purple'} borderColor={'purple'} />
                         </View>
-                        <Text style={{ alignSelf: 'center', fontSize: 30, marginTop: 20}}>Step 1</Text>
-                        <Text style={{ alignSelf: 'center', fontSize: 18, marginTop: 5}}>Self introduction.</Text>
+                        <Text style={{ alignSelf: 'center', fontSize: 30, marginTop: 20 }}>Step 1</Text>
+                        <Text style={{ alignSelf: 'center', fontSize: 18, marginTop: 5 }}>Self introduction.</Text>
                         <Form>
                             <Item floatingLabel>
                                 <Label>I identify as</Label>
