@@ -8,6 +8,7 @@ import Settings from './src/screens/settings';
 import ProfileModal from './src/screens/settings/profileModal';
 
 import Step1 from './src/screens/user-registration/step-1';
+import Step2 from './src/screens/user-registration/step-2';
 import RacePreferenceCheckBoxes from './src/screens/user-registration/racePreferenceCheckBoxes';
 
 import store from './src/store';
@@ -45,6 +46,7 @@ const Home = () => {
 const UserRegistration = () => {
   return (
     <UserRegistrationStack.Navigator mode="card" screenOptions={{ headerShown: false, gestureEnabled: false }}>
+      <UserRegistrationStack.Screen name="Step2" component={Step2} />
       <UserRegistrationStack.Screen name="Step1" component={Step1} />
       <UserRegistrationStack.Screen name="RacePreferenceCheckBoxes" component={RacePreferenceCheckBoxes} />
     </UserRegistrationStack.Navigator>

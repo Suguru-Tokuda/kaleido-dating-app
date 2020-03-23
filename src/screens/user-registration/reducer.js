@@ -4,6 +4,7 @@ const userRegistrationData = {
     racePrefIDs: [],
     genderToLookFor: '',
     firstName: '',
+    description: '',
     dateOfBirth: '',
     height: 0,
     bodyTypeID: 0,
@@ -28,6 +29,9 @@ export default function UserRegistration(state = userRegistrationData, action) {
         case 'SET_FIRST_NAME':
             newState.firstName = action.value;
             break;
+        case 'SET_DESCRIPTION':
+            newState.description = action.value;
+            break;
         case 'SET_DATE_OF_BIRTH':
             newState.dateOfBirth = action.value;
             break;
@@ -41,7 +45,7 @@ export default function UserRegistration(state = userRegistrationData, action) {
             newState.physicalAppearanceIDs = action.value;
             break;
         default:
-            breakl;
+            break;
     }
     return newState;
 }

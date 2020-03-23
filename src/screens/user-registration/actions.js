@@ -3,6 +3,7 @@ const SET_GENDER = 'SET_GENDER';
 const SET_RACE_PREF_IDS = 'SET_RACE_PREF_IDS';
 const SET_GENDER_TO_LOOK_FOR = 'SET_GENDER_TO_LOOK_FOR';
 const SET_FIRST_NAME = 'SET_FIRST_NAME';
+const SET_DESCRIPTIONS = 'SET_DESCRIPTIONS';
 const SET_DATE_OF_BIRTH = 'SET_DATE_OF_BIRTH';
 const SET_HEIGHT = 'SET_HEIGHT';
 const SET_BODY_TYPE_ID = 'SET_BODY_TYPE_ID';
@@ -26,6 +27,10 @@ export function setGenderToLookFor(gender) {
 
 export function setFirstName(firstName) {
     return { type: SET_FIRST_NAME, value: firstName };
+}
+
+export function setDescriptions(descriptions) {
+    return { type: SET_DESCRIPTIONS, value: descriptions };
 }
 
 export function setDateOfBirth(dateOfBirth) {

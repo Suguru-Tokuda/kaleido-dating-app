@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Picker, Dimensions, Button, TouchableOpacity, Keyboard } from 'react-native';
 import { Container, Content, Text, View, Input, Item, Label, Form, Badge, Button as ReactNativeButton } from 'native-base';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import * as Progress from 'react-native-progress';
 import { connect } from 'react-redux';
 
@@ -33,19 +34,15 @@ class Step1 extends Component {
         showSexualOrientationPicker: false
     }
 
-    renderGenderPickerItems() {
-        const { genders } = this.state;
-        let retVal;
-        if (genders.length > 0) {
-            retVal = genders.map(gender => <Picker.Item key={`gender-picker-item-${gender.genderID}`} label={gender.label} value={gender.genderID} />);
-        } else {
-            retVal = null;
-        }
-        return retVal;
-    }
-
     renderGenderPicker = () => {
         if (this.state.showGenderPicker === true) {
+            const { genders } = this.state;
+            let pickerItems;
+            if (genders.length > 0) {
+                pickerItems = genders.map(gender => <Picker.Item key={`gender-picker-item-${gender.genderID}`} label={`${gender.label}`} value={gender.genderID} />);
+            } else {
+                pickerItems = null;
+            }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
                     <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
@@ -55,22 +52,22 @@ class Step1 extends Component {
                         selectedValue={this.state.selectedGenderID}
                         onValueChange={(itemValue) => this.setState({ selectedGenderID: itemValue })}
                     >
-                        {this.renderGenderPickerItems()}
+                        {pickerItems}
                     </Picker>
                 </View>
             );
-        }
-    }
-
-    renderSexualOrientationItems() {
-        const { sexualOrientations } = this.state;
-        if (sexualOrientations.length > 0) {
-            return sexualOrientations.map(sexualOrientation => <Picker.Item key={`sexual-orientation-item-${sexualOrientation.sexualOrientationID}`} label={sexualOrientation.label} value={sexualOrientation.sexualOrientationID} />);
+        } else {
+            return null;
         }
     }
 
     renderSexualOrientationPicker = () => {
         if (this.state.showSexualOrientationPicker === true) {
+            const { sexualOrientations } = this.state;
+            let pickerItems;
+            if (sexualOrientations.length > 0) {
+                pickerItems = sexualOrientations.map(sexualOrientation => <Picker.Item key={`sexual-orientation-item-${sexualOrientation.sexualOrientationID}`} label={sexualOrientation.label} value={sexualOrientation.sexualOrientationID} />);
+            }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
                     <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
@@ -80,27 +77,23 @@ class Step1 extends Component {
                         selectedValue={this.state.selectedSexualOrientationID}
                         onValueChange={(itemValue) => this.setState({ selectedSexualOrientationID: itemValue })}
                     >
-                        {this.renderSexualOrientationItems()}
+                        {pickerItems}
                     </Picker>
                 </View>
             )
-        }
-    }
-
-    renderRacePickerItems() {
-        const { races } = this.state;
-        let retVal;
-        if (races.length > 0) {
-            retVal = races.map(race => <Picker.Item key={`picker-item-race: ${race.raceID}`} label={race.label} value={race.raceID} />);
         } else {
-            retVal = null;
+            return null;
         }
-        return retVal;
     }
 
     renderRacePicker = () => {
         const { showRacePicker, selectedRaceID } = this.state;
         if (showRacePicker === true) {
+            const { races } = this.state;
+            let pickerItems;
+            if (races.length > 0) {
+                pickerItems = races.map(race => <Picker.Item key={`picker-item-race: ${race.raceID}`} label={race.label} value={race.raceID} />);
+            }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
                     <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
@@ -108,10 +101,13 @@ class Step1 extends Component {
                     </View>
                     <Picker
                         selectedValue={selectedRaceID}
-                        onValueChange={(itemValue) => this.setState({ selectedRaceID: itemValue })}>{this.renderRacePickerItems()}
+                        onValueChange={(itemValue) => this.setState({ selectedRaceID: itemValue })}>
+                            {pickerItems}
                     </Picker>
                 </View>
             );
+        } else {
+            return null;
         }
     }
 
@@ -119,7 +115,10 @@ class Step1 extends Component {
         const { selectedGenderID, genders } = this.state;
         if (genders.length > 0) {
             for (const gender of genders) {
+                console.log(gender.genderID);
+                console.log(selectedGenderID);
                 if (gender.genderID === selectedGenderID) {
+                    console.log(gender.label);
                     return gender.label;
                 }
             }
@@ -188,7 +187,7 @@ class Step1 extends Component {
                 }
             });
             return (
-                <View style={{flexDirection: 'row', flexWrap: 'wrap', alignSelf: 'flex-start', marginTop: 20, marginBottom: 15}}>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap', alignSelf: 'flex-start', paddingStart: 5 }}>
                     {badges}
                 </View>
             )
@@ -198,7 +197,6 @@ class Step1 extends Component {
     }
 
     handleShowGenderPickerBtnPressed = () => {
-        Keyboard.dismiss();
         let showGenderPicker = this.state.showGenderPicker;
         let { selectedGenderID } = this.state;
         const { genders } = this.state;
@@ -210,7 +208,6 @@ class Step1 extends Component {
     }
 
     handleShowRacePickerBtnPress = () => {
-        Keyboard.dismiss();
         let showRacePicker = this.state.showRacePicker;
         let { selectedRaceID } = this.state;
         const { races } = this.state;
@@ -222,7 +219,6 @@ class Step1 extends Component {
     }
 
     handleShowSexualOrientationPickerBtnPress = () => {
-        Keyboard.dismiss();
         let showSexualOrientationPicker = this.state.showSexualOrientationPicker;
         showSexualOrientationPicker = !showSexualOrientationPicker;
         let { selectedSexualOrientationID } = this.state;
@@ -288,34 +284,58 @@ class Step1 extends Component {
                         <Text style={{ alignSelf: 'center', fontSize: 30, marginTop: 20 }}>Step 1</Text>
                         <Text style={{ alignSelf: 'center', fontSize: 18, marginTop: 5 }}>Self introduction.</Text>
                         <Form>
-                            <Item floatingLabel>
-                                <Label>I identify as</Label>
-                                <Input 
-                                    style={{ color: 'purple' }}
-                                    value={this.getGenderValue()}
-                                    onFocus={this.handleShowGenderPickerBtnPressed} 
-                                />
-                            </Item>
-                            <Item floatingLabel>
-                                <Label>My Race is</Label>
-                                <Input  
-                                    style={{ color: 'purple'}}
-                                    value={this.getRaceValue()}
-                                    onFocus={this.handleShowRacePickerBtnPress}
-                                />
-                            </Item>
-                            <Item floatingLabel>
-                                <Label>My sexual orientation is</Label>
-                                <Input
-                                    style={{ color: 'purple'}}
-                                    value={this.getSexualOrientationValue()}
-                                    onFocus={this.handleShowSexualOrientationPickerBtnPress}
-                                />
-                            </Item>
-                            <Item stackedLabel onPress={this.handleRacePrefsOnFocus}>
-                                <Label>Looking for</Label>
-                                {this.getRacePrefBadges()}
-                            </Item>
+                            <View style={{ marginTop: 10}}>
+                                <Text style={{ paddingStart: 8, fontSize: 10}}>Gender</Text>
+                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleShowGenderPickerBtnPressed}>
+                                    {this.state.selectedGenderID !== 0 && (
+                                        <Text style={{ color: 'purple', paddingStart: 10 }}>{this.getGenderValue()}</Text>
+                                    )}
+                                    {this.state.selectedGenderID === 0 && (
+                                        <Text style={{ color: 'grey', paddingStart: 10 }}>I identify as</Text>
+                                    )}
+                                </Item>
+                            </View>
+                            <View style={{ marginTop: 10}}>
+                                <Text style={{ paddingStart: 8, fontSize: 10}}>Race</Text>
+                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleShowRacePickerBtnPress}>
+                                    {this.state.selectedRaceID !== 0 && (
+                                        <Text style={{ color: 'purple', paddingStart: 10 }}>{this.getRaceValue()}</Text>
+                                    )}
+                                    {this.state.selectedRaceID === 0 && (
+                                        <Text style={{ color: 'grey', paddingStart: 10 }}>My race is</Text>
+                                    )}
+                                </Item>
+                            </View>
+                            <View style={{ marginTop: 10 }}>
+                                <Text style={{ paddingStart: 8, fontSize: 10}}>Sexual orientation</Text>
+                                <Item rounded style={{ marginTop: 5, height: 35}} onPress={this.handleShowSexualOrientationPickerBtnPress}>
+                                    {this.state.selectedSexualOrientationID !== 0 && (
+                                        <Text style={{ color: 'purple', paddingStart: 10}}>{this.getSexualOrientationValue()}</Text>
+                                    )}
+                                    {this.state.selectedSexualOrientationID === 0 && (
+                                        <Text style={{ color: 'grey', paddingStart: 10}}>I am looking for</Text>
+                                    )}
+
+                                </Item>
+                            </View>
+                            <View style={{ marginTop: 10 }}>
+                                <Text style={{ paddingStart: 8, fontSize: 10 }}>Race Preferences</Text>
+                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleRacePrefsOnFocus}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ flex: 11, flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                            {this.props.racePrefIDs.length !== 0 && (
+                                                this.getRacePrefBadges()
+                                            )}
+                                            {this.props.racePrefIDs.length === 0 && (
+                                                <Text style={{ color: 'grey', paddingStart: 10}}>I prefer</Text>
+                                            )}
+                                        </View>
+                                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                                            <FeatherIcon name="chevron-right" style={{ alignSelf: 'flex-end', marginBottom: 0, fontSize: 20}} />
+                                        </View>
+                                    </View>
+                                </Item>
+                            </View>
                         </Form>
                     </Content>
                 </Container>
