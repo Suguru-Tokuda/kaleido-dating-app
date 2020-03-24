@@ -45,8 +45,10 @@ class Step1 extends Component {
             }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
-                        <Button title="Done" onPress={this.handleShowGenderPickerBtnPressed} />
+                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
+                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                            <Button title="Done" onPress={this.handleShowGenderPickerBtnPressed} />
+                        </View>
                     </View>
                     <Picker 
                         selectedValue={this.state.selectedGenderID}
@@ -70,8 +72,10 @@ class Step1 extends Component {
             }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
-                        <Button title="Done" onPress={this.handleShowSexualOrientationPickerBtnPress} />
+                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
+                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                            <Button title="Done" onPress={this.handleShowSexualOrientationPickerBtnPress} />
+                        </View>
                     </View>
                     <Picker
                         selectedValue={this.state.selectedSexualOrientationID}
@@ -96,8 +100,10 @@ class Step1 extends Component {
             }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
-                        <Button title="Done" onPress={this.handleShowRacePickerBtnPress} />
+                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
+                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                            <Button title="Done" onPress={this.handleShowRacePickerBtnPress} />
+                        </View>
                     </View>
                     <Picker
                         selectedValue={selectedRaceID}

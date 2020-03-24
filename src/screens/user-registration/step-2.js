@@ -24,9 +24,18 @@ class Step2 extends Component {
             { kidsID: 2, label: `Don't want kids.`},
             { kidsID: 3, label: `Have kids.`}
         ],
-
+        tattooID: 0,
+        tattooOptions: [
+            { tattooID: 1, label: 'None' },
+            { tattooID: 2, label: '1' },
+            { tattooID: 3, label: '2' },
+            { tattooID: 4, label: '3' },
+            { tattooID: 5, label: 'More than 3' }
+        ],
         showHeightPicker: false,
-        showKidsPicker: false
+        showKidsPicker: false,
+        showTattooPicker: false,
+        modalVisible: false
     };
 
     constructor(props) {
@@ -46,8 +55,10 @@ class Step2 extends Component {
             });
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
-                        <Button title="Done" onPress={this.handleHeightPressed} />
+                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
+                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                            <Button title="Done" onPress={this.handleHeightPressed} />
+                        </View>
                     </View>
                     <View style={{ flexDirection: 'row'}}>
                         <Picker
@@ -66,20 +77,71 @@ class Step2 extends Component {
     }
 
     renderKidsPicker = () => {
-        const pickerItems = this.state.kidsOptions.map(kidsOption => <Picker.Item key={kidsOption.kidsID} label={kidsOption.label} value={kidsOption.label} />);
-        return (
-            <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', alignItems: 'flex-end' }}>
-                    <Button title="Done" onPress={this.handleKidsPickerBtnPressed} />
+        if (this.state.showKidsPicker === true) { 
+            const pickerItems = this.state.kidsOptions.map(kidsOption => <Picker.Item key={kidsOption.kidsID} label={kidsOption.label} value={kidsOption.kidsID} />);
+            return (
+                <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
+                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                            <Button title="Done" onPress={this.handleKidsPressed} />
+                        </View>
+                    </View>
+                    <Picker
+                        selectedValue={this.state.kidsOptionID}
+                        onValueChange={(itemValue) => this.setState({ kidsOptionID: itemValue })}
+                    >
+                        {pickerItems}
+                    </Picker>
                 </View>
-                <Picker
-                    selectedValue={this.state.selectedKidsOptionID}
-                    onValueChange={(itemValue) => this.setState({ selectedKidsOptionID: itemValue })}
-                >
-                    {pickerItems}
-                </Picker>
-            </View>
-        );
+            );
+        }
+    }
+
+    renderTattoosPicker = () => {
+        if (this.state.showTattooPicker === true) {
+            const pickerItems = this.state.tattooOptions.map(tattooOption => <Picker.Item key={tattooOption.tattooID} label={tattooOption.label} value={tattooOption.tattooID} />);
+            return (
+                <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+                    <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
+                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                            <Button title="Done" onPress={this.handleTattoosPressed} />
+                        </View>
+                    </View>
+                    <Picker
+                        selectedValue={this.state.tattooID}
+                        onValueChange={(itemValue) => this.setState({ tattooID: itemValue })}
+                    >
+                        {pickerItems}
+                    </Picker>
+                </View>
+            );
+        }
+    }
+
+    getKidsValue = () => {
+        const { kidsOptionID, kidsOptions } = this.state;
+        if (kidsOptions.length > 0) {
+            for (const kidsOption of kidsOptions) {
+                if (kidsOption.kidsID === kidsOptionID) {
+                    return kidsOption.label;
+                }
+            }
+        } else {
+            return '';
+        }
+    }
+
+    getTattooValue = () => {
+        const { tattooID, tattooOptions } = this.state;
+        if (tattooOptions.length > 0) {
+            for (const tattooOption of tattooOptions) {
+                if (tattooOption.tattooID === tattooID) {
+                    return tattooOption.label;
+                }
+            }
+        } else {
+            return '';
+        }
     }
 
     handleFirstNameChanged = (firstName) => {
@@ -101,13 +163,34 @@ class Step2 extends Component {
     }
 
     handleHeightPressed = () => {
-        let showHeightPicker = this.state.showHeightPicker;
-        let { height } = this.state;
+        let { showHeightPicker, height } = this.state;
         showHeightPicker = !showHeightPicker;
-        if (height === 0 && showHeightPicker === true) {
+        if ((height === 0 || height === undefined) && showHeightPicker === true) {
             height = heightOptions()[0];
         }
         this.setState({ height, showHeightPicker });
+    }
+
+    handleKidsPressed = () => {
+        let { kidsOptions, showKidsPicker, kidsID } = this.state;
+        showKidsPicker = !showKidsPicker;
+        if (kidsID === 0 && showKidsPicker === true) {
+            kidsID = kidsOptions[0].kidsID;
+        }
+        this.setState({ showKidsPicker, kidsID });
+    }
+
+    handleTattoosPressed = () => {
+        let { tattooOptions, showTattooPicker, tattooID } = this.state;
+        showTattooPicker = !showTattooPicker;
+        if (tattooID === 0 && showTattooPicker === true) {
+            tattooID = tattooOptions[0].tattooID;
+        }
+        this.setState({ showTattooPicker, tattooID });
+    }
+
+    handleModalChange = (modalVisible) => {
+        this.setState({ modalVisible });
     }
 
     render() {
@@ -151,7 +234,7 @@ class Step2 extends Component {
                                             placeHolderTextStyle={{ color: "#d3d3d3" }}
                                             value={this.state.dateOfBirth}
                                             onDateChange={(date) => this.setState({ dateOfBirth: date })}
-                                            style={{ width: 300}}
+                                            onModalChange={this.handleModalChange}
                                         />
                                     </View>
                                 </Item>
@@ -169,19 +252,36 @@ class Step2 extends Component {
                             </View>
                             <View style={{ marginTop: 10 }}>
                                 <Label style={{ paddingStart: 8, fontSize: 10 }}>Kids</Label>
-                                <Item rounded style={{ marginTop: 10, height: 35 }}>
-                                    <Text style={{ paddingStart: 10, color: 'gray'}}>About kids...</Text>
+                                <Item rounded style={{ marginTop: 10, height: 35 }} onPress={this.handleKidsPressed}>
+                                    {this.state.kidsOptionID === 0 && (
+                                        <Text style={{ paddingStart: 10, color: 'gray'}}>About kids...</Text>
+                                    )}
+                                    {this.state.kidsOptionID !== 0 && (
+                                        <Text style={{ paddingStart: 10, color: 'purple'}}>{this.getKidsValue()}</Text>
+                                    )}
+                                </Item>
+                            </View>
+                            <View style={{ marginTop: 10}}>
+                                <Label style={{ paddingStart: 8, fontSize: 10 }}>Tattoos</Label>
+                                <Item rounded style={{ marginTop: 10, height: 35 }} onPress={this.handleTattoosPressed}>
+                                    {this.state.tattooID === 0 && (
+                                        <Text style={{ paddingStart: 10, color: 'gray' }}>About tattoos...</Text>
+                                    )}
+                                    {this.state.tattooID !== 0 && (
+                                        <Text style={{ paddingStart: 10, color: 'purple' }}>{this.getTattooValue()}</Text>
+                                    )}
                                 </Item>
                             </View>
                         </Form>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'relative', marginTop: 10, bottom: 0, marginBottom: 0 }}>
+                    </Content>
+                    <View style={{ display: this.state.modalVisible === true ? 'none' : 'flex', flexDirection: 'row', justifyContent: 'center', position: 'relative', marginTop: 10, bottom: 0, marginBottom: 20 }}>
                         <ReactNativeButton style={{ backgroundColor: 'purple' }} rounded><Text>Back</Text></ReactNativeButton>
                         <ReactNativeButton style={{ backgroundColor: 'purple', marginStart: 10 }} rounded><Text>Next</Text></ReactNativeButton>
                     </View>
-                    </Content>
                 </Container>
-                {/* {this.renderMonthPicker()} */}
                 {this.renderHeightPicker()}
+                {this.renderKidsPicker()}
+                {this.renderTattoosPicker()}
             </TouchableOpacity>
         );
     }
