@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-class Messages extends Component {
+class Chat extends Component {
     render() {
         return null;
     }
 }
 
-export default Messages;
+export default Chat;

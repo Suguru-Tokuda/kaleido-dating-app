@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Login from './src/screens/login';
+import ChatScreen from './src/screens/chat-screen';
+import ChatList from './src/screens/chat-list';
 import Swipe from './src/screens/swipe';
-import Messages from './src/screens/messages';
 import Search from './src/screens/search';
 import Settings from './src/screens/settings';
 import ProfileModal from './src/screens/settings/profileModal';
@@ -28,7 +29,7 @@ const Main = () => {
     <Tab.Navigator tabBar={props => <ButtomTabBar {...props}/>}>
       <Tab.Screen name="Swipe" component={Swipe} />
       <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="Messages" component={ChatList} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
@@ -59,9 +60,10 @@ class App extends Component {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator mode="card" screenOptions={{ headerShown: false, gestureEnabled: false }}>
-            <Stack.Screen name="UserRegistration" component={UserRegistration}></Stack.Screen>
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
             <Stack.Screen name="Home" component={Home}></Stack.Screen>
+            <Stack.Screen name="UserRegistration" component={UserRegistration}></Stack.Screen>
+            <Stack.Screen name="ChatScreen" component={ChatScreen}></Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

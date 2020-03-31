@@ -56,7 +56,7 @@ class Step2 extends Component {
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
                     <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
-                        <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
                             <Button title="Done" onPress={this.handleHeightPressed} />
                         </View>
                     </View>
@@ -197,7 +197,7 @@ class Step2 extends Component {
         return (
             <TouchableOpacity style={{ height: deviceHeight, backgroundColor: 'white'}} onPressOut={this.handleScreenPressed} activeOpacity={1}>
                 <Container style={{ height: deviceHeight }}>
-                    <Content scrolleEnabled={true} style={{ height: deviceHeight, padding: 20 }}>
+                    <Content scrolleEnabled={false} style={{ height: deviceHeight, padding: 20 }}>
                         <View style={{ alignSelf: 'center', marginTop: 20 }}>
                             <Progress.Bar progress={0.3} width={200} color={'purple'} borderColor={'purple'} />
                         </View>
@@ -279,9 +279,9 @@ class Step2 extends Component {
                         <ReactNativeButton style={{ backgroundColor: 'purple', marginStart: 10 }} rounded><Text>Next</Text></ReactNativeButton>
                     </View>
                 </Container>
+                {this.renderTattoosPicker()}
                 {this.renderHeightPicker()}
                 {this.renderKidsPicker()}
-                {this.renderTattoosPicker()}
             </TouchableOpacity>
         );
     }

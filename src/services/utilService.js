@@ -5,3 +5,7 @@ export const toFeet = (cm) => {
     const inches = Math.round((realFeet - feet) * 12);
     return `${feet}'${inches}"`;
 };
+
+export const shortenStr = (str, len) => {
+    return `${str.substring(0, len)}...`;
+}
