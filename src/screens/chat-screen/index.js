@@ -170,7 +170,7 @@ class ChatScreen extends Component {
                         <Right />
                     </Header>
                     <View style={{ flex: 1 }}>
-                        <GiftedChat
+                        {/* <GiftedChat
                             messages={this.state.messages}
                             onSend={this.onSend}
                             loadEarlier={this.state.loadEarlier}
@@ -181,7 +181,7 @@ class ChatScreen extends Component {
                             renderFooter={this.renderFooter}
                             renderAvatar={this.renderAvatar}
                             renderSend={this.renderSend}
-                        />
+                        /> */}
                     </View>
                 </Container>
             );

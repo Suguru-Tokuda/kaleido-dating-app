@@ -17,13 +17,7 @@ class Step2 extends Component {
         height: '',
         physicalAppearanceIDs: [],
         tattos: 0,
-        kids: 0,
-        kidsOptionID: 0,
-        kidsOptions: [
-            { kidsID: 1, label: `Don't have kids.`},
-            { kidsID: 2, label: `Don't want kids.`},
-            { kidsID: 3, label: `Have kids.`}
-        ],
+
         tattooID: 0,
         tattooOptions: [
             { tattooID: 1, label: 'None' },

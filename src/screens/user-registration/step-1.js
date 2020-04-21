@@ -9,16 +9,16 @@ const deviceHeight = Dimensions.get('window').height;
 
 class Step1 extends Component {
     state = {
-        raceIDs: [],
-        selectedRaceID: 0,
-        races: [
-            {raceID: 1, label: 'White'},
-            {raceID: 2, label: 'Black'},
-            {raceID: 3, label: 'Asian'},
-            {raceID: 4, label: 'Indian'},
-            {raceID: 5, label: 'Mexican'}
+        ethnicityIDs: [],
+        selectedEthnicityID: 0,
+        ethnicitys: [
+            {ethnicityID: 1, label: 'White'},
+            {ethnicityID: 2, label: 'Black'},
+            {ethnicityID: 3, label: 'Asian'},
+            {ethnicityID: 4, label: 'Indian'},
+            {ethnicityID: 5, label: 'Mexican'}
         ],
-        selectedRacePrefIDs: [],
+        selectedEthnicityPrefIDs: [],
         selectedGenderID: 0,
         genders: [
             {genderID: 1, label: 'Male'},
@@ -30,7 +30,7 @@ class Step1 extends Component {
             {sexualOrientationID: 2, label: 'Bisexual'},
         ],
         showGenderPicker: false,
-        showRacePicker: false,
+        showEthnicityPicker: false,
         showSexualOrientationPicker: false
     }
 
@@ -90,24 +90,24 @@ class Step1 extends Component {
         }
     }
 
-    renderRacePicker = () => {
-        const { showRacePicker, selectedRaceID } = this.state;
-        if (showRacePicker === true) {
-            const { races } = this.state;
+    renderEthnicityPicker = () => {
+        const { showEthnicityPicker, selectedEthnicityID } = this.state;
+        if (showEthnicityPicker === true) {
+            const { ethnicitys } = this.state;
             let pickerItems;
-            if (races.length > 0) {
-                pickerItems = races.map(race => <Picker.Item key={`picker-item-race: ${race.raceID}`} label={race.label} value={race.raceID} />);
+            if (ethnicitys.length > 0) {
+                pickerItems = ethnicitys.map(ethnicity => <Picker.Item key={`picker-item-ethnicity: ${ethnicity.ethnicityID}`} label={ethnicity.label} value={ethnicity.ethnicityID} />);
             }
             return (
                 <View style={{ backgroundColor: 'white', position: 'absolute', bottom: 0, left: 0, right: 0 }}>
                     <View style={{ borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: '#D3D3D3', borderTopColor: '#D3D3D3', flexDirection: 'row' }}>
                         <View style={{  flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-                            <Button title="Done" onPress={this.handleShowRacePickerBtnPress} />
+                            <Button title="Done" onPress={this.handleShowEthnicityPickerBtnPress} />
                         </View>
                     </View>
                     <Picker
-                        selectedValue={selectedRaceID}
-                        onValueChange={(itemValue) => this.setState({ selectedRaceID: itemValue })}>
+                        selectedValue={selectedEthnicityID}
+                        onValueChange={(itemValue) => this.setState({ selectedEthnicityID: itemValue })}>
                             {pickerItems}
                     </Picker>
                 </View>
@@ -132,12 +132,12 @@ class Step1 extends Component {
         return '';
     }
 
-    getRaceValue = () => {
-        const { selectedRaceID, races } = this.state;
-        if (races.length > 0) {
-            for (const race of races) {
-                if (race.raceID === selectedRaceID) {
-                    return race.label;
+    getEthnicityValue = () => {
+        const { selectedEthnicityID, ethnicitys } = this.state;
+        if (ethnicitys.length > 0) {
+            for (const ethnicity of ethnicitys) {
+                if (ethnicity.ethnicityID === selectedEthnicityID) {
+                    return ethnicity.label;
                 }
             }
         }
@@ -156,38 +156,38 @@ class Step1 extends Component {
         return '';
     }
 
-    getRacePrefsLabel = () => {
-        const { races } = this.state;
-        const { racePrefIDs } = this.props;
+    getEthnicityPrefsLabel = () => {
+        const { ethnicitys } = this.state;
+        const { ethnicityPrefIDs } = this.props;
         let retVal = '';
-        races.forEach((race, i) => {
-            if (racePrefIDs.indexOf(race.raceID) !== -1) {
+        ethnicitys.forEach((ethnicity, i) => {
+            if (ethnicityPrefIDs.indexOf(ethnicity.ethnicityID) !== -1) {
                 if (retVal.length === 0) {
-                    retVal += race.label;
+                    retVal += ethnicity.label;
                 } else {
-                    retVal += `, ${race.label}`;
+                    retVal += `, ${ethnicity.label}`;
                 }
             }
         });
         return retVal;
     }
 
-    getRacePrefBadges = () => {
-        const { races } = this.state;
-        const { racePrefIDs } = this.props;
-        if (racePrefIDs.length > 0) {
+    getEthnicityPrefBadges = () => {
+        const { ethnicitys } = this.state;
+        const { ethnicityPrefIDs } = this.props;
+        if (ethnicityPrefIDs.length > 0) {
             const badges = [];
-            races.forEach((race, i) => {
-                const index = racePrefIDs.indexOf(race.raceID);
+            ethnicitys.forEach((ethnicity, i) => {
+                const index = ethnicityPrefIDs.indexOf(ethnicity.ethnicityID);
                 if (index !== -1) {
                     badges.push(
                     <Badge
-                        key={`race-badge-${race.raceID}`}
+                        key={`ethnicity-badge-${ethnicity.ethnicityID}`}
                      style={{ 
                         backgroundColor: 'purple',
                         marginLeft: i === 0 ? 0 : 3
                         }}>
-                        <Text>{race.label}</Text>
+                        <Text>{ethnicity.label}</Text>
                     </Badge>
                     )
                 }
@@ -210,18 +210,18 @@ class Step1 extends Component {
         if (selectedGenderID === 0 && showGenderPicker === true) {
             selectedGenderID = genders[0].genderID;
         }
-        this.setState({ selectedGenderID, showGenderPicker, showRacePicker: false, showSexualOrientationPicker: false });
+        this.setState({ selectedGenderID, showGenderPicker, showEthnicityPicker: false, showSexualOrientationPicker: false });
     }
 
-    handleShowRacePickerBtnPress = () => {
-        let showRacePicker = this.state.showRacePicker;
-        let { selectedRaceID } = this.state;
-        const { races } = this.state;
-        showRacePicker = !showRacePicker;
-        if (selectedRaceID === 0 && showRacePicker === true) {
-            selectedRaceID = races[0].raceID;
+    handleShowEthnicityPickerBtnPress = () => {
+        let showEthnicityPicker = this.state.showEthnicityPicker;
+        let { selectedEthnicityID } = this.state;
+        const { ethnicitys } = this.state;
+        showEthnicityPicker = !showEthnicityPicker;
+        if (selectedEthnicityID === 0 && showEthnicityPicker === true) {
+            selectedEthnicityID = ethnicitys[0].ethnicityID;
         }
-        this.setState({ selectedRaceID, showRacePicker, showGenderPicker: false, showSexualOrientationPicker: false });
+        this.setState({ selectedEthnicityID, showEthnicityPicker, showGenderPicker: false, showSexualOrientationPicker: false });
     }
 
     handleShowSexualOrientationPickerBtnPress = () => {
@@ -232,37 +232,37 @@ class Step1 extends Component {
         if (selectedSexualOrientationID === 0 && showSexualOrientationPicker === true) {
             selectedSexualOrientationID = sexualOrientations[0].sexualOrientationID;
         }
-        this.setState({ selectedSexualOrientationID, showSexualOrientationPicker, showRacePicker: false, showGenderPicker: false });
+        this.setState({ selectedSexualOrientationID, showSexualOrientationPicker, showEthnicityPicker: false, showGenderPicker: false });
     }
 
-    handleRacePrefsOnFocus = () => {
+    handleEthnicityPrefsOnFocus = () => {
         Keyboard.dismiss();
-        const { races } = this.state;
-        const { racePrefIDs } = this.props;
+        const { ethnicitys } = this.state;
+        const { ethnicityPrefIDs } = this.props;
         this.setState({
             showGenderPicker: false,
-            showRacePicker: false,
+            showEthnicityPicker: false,
             showSexualOrientationPicker: false
         });
-        this.props.navigation.navigate('RacePreferenceCheckBoxes', {
-            selectedRaceIDs: racePrefIDs,
-            races: races
+        this.props.navigation.navigate('EthnicityPreferenceCheckBoxes', {
+            selectedEthnicityIDs: ethnicityPrefIDs,
+            ethnicitys: ethnicitys
         });
     }
 
     handleContentPress = () => {
         this.setState({
             showGenderPicker: false,
-            showRacePicker: false,
+            showEthnicityPicker: false,
             showSexualOrientationPicker: false
         });
     }
 
     getButtonDisabledValue = () => {
-        const { selectedRaceID, selectedGenderID, selectedSexualOrientationID } = this.state;
-        const { racePrefIDs } = this.props;
+        const { selectedEthnicityID, selectedGenderID, selectedSexualOrientationID } = this.state;
+        const { ethnicityPrefIDs } = this.props;
         let isValid = true;
-        if (selectedRaceID === 0 || racePrefIDs.length === 0 || selectedGenderID === 0 || selectedSexualOrientationID === 0)
+        if (selectedEthnicityID === 0 || ethnicityPrefIDs.length === 0 || selectedGenderID === 0 || selectedSexualOrientationID === 0)
             isValid = false;
         return isValid;
     }
@@ -302,13 +302,13 @@ class Step1 extends Component {
                                 </Item>
                             </View>
                             <View style={{ marginTop: 10}}>
-                                <Text style={{ paddingStart: 8, fontSize: 10}}>Race</Text>
-                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleShowRacePickerBtnPress}>
-                                    {this.state.selectedRaceID !== 0 && (
-                                        <Text style={{ color: 'purple', paddingStart: 10 }}>{this.getRaceValue()}</Text>
+                                <Text style={{ paddingStart: 8, fontSize: 10}}>Ethnicity</Text>
+                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleShowEthnicityPickerBtnPress}>
+                                    {this.state.selectedEthnicityID !== 0 && (
+                                        <Text style={{ color: 'purple', paddingStart: 10 }}>{this.getEthnicityValue()}</Text>
                                     )}
-                                    {this.state.selectedRaceID === 0 && (
-                                        <Text style={{ color: 'grey', paddingStart: 10 }}>My race is</Text>
+                                    {this.state.selectedEthnicityID === 0 && (
+                                        <Text style={{ color: 'grey', paddingStart: 10 }}>My ethnicity is</Text>
                                     )}
                                 </Item>
                             </View>
@@ -325,14 +325,14 @@ class Step1 extends Component {
                                 </Item>
                             </View>
                             <View style={{ marginTop: 10 }}>
-                                <Text style={{ paddingStart: 8, fontSize: 10 }}>Race Preferences</Text>
-                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleRacePrefsOnFocus}>
+                                <Text style={{ paddingStart: 8, fontSize: 10 }}>Ethnicity Preferences</Text>
+                                <Item rounded style={{ marginTop: 5, height: 35 }} onPress={this.handleEthnicityPrefsOnFocus}>
                                     <View style={{ flexDirection: 'row' }}>
                                         <View style={{ flex: 11, flexDirection: 'row', justifyContent: 'flex-start' }}>
-                                            {this.props.racePrefIDs.length !== 0 && (
-                                                this.getRacePrefBadges()
+                                            {this.props.ethnicityPrefIDs.length !== 0 && (
+                                                this.getEthnicityPrefBadges()
                                             )}
-                                            {this.props.racePrefIDs.length === 0 && (
+                                            {this.props.ethnicityPrefIDs.length === 0 && (
                                                 <Text style={{ color: 'grey', paddingStart: 10}}>I prefer</Text>
                                             )}
                                         </View>
@@ -350,7 +350,7 @@ class Step1 extends Component {
                 </ReactNativeButton>
                 {this.renderGenderPicker()}
                 {this.renderSexualOrientationPicker()}
-                {this.renderRacePicker()}
+                {this.renderEthnicityPicker()}
             </TouchableOpacity>
         );
     }
@@ -358,9 +358,9 @@ class Step1 extends Component {
 
 function mapStateToProps(state) {
     return {
-        raceIDs: state.userRegistration.raceIDs,
-        gender: state.userRegistration.race,
-        racePrefIDs: state.userRegistration.racePrefIDs,
+        ethnicityIDs: state.userRegistration.ethnicityIDs,
+        gender: state.userRegistration.ethnicity,
+        ethnicityPrefIDs: state.userRegistration.ethnicityPrefIDs,
         genderToLookFor: state.userRegistration.genderToLookFor
     };
 }
